@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "debug": "node --inspect-brk index.js",
-    "reset-db": "dropdb space-app-db; createdb space-app-db; psql -f schema.sql space-app-db; psql -f seed.sql space-app-db;"
+    "reset-db": "dropdb space-app-db; createdb space-app-db; psql -f schema.sql space-app-db; psql -f seed.sql space-app-db; psql space-app-db < node_modules/connect-pg-simple/table.sql;"
   },
   "repository": {
     "type": "git",
