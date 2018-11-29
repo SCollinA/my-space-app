@@ -1,5 +1,5 @@
 {
-  "name": "space-app",
+  "name": "my-space-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SCollinA/space-app.git"
+    "url": "git+https://github.com/SCollinA/my-space-app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SCollinA/space-app/issues"
+    "url": "https://github.com/SCollinA/my-space-app/issues"
   },
-  "homepage": "https://github.com/SCollinA/space-app#readme",
+  "homepage": "https://github.com/SCollinA/my-space-app#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
