@@ -68,6 +68,7 @@ class User {
         })
     }
     static getById(id) {
+        console.log('buut')
         return db.one(`select * from users where id=$1`, [id])
         .then(userObj => new User(userObj.id, userObj.name, userObj.lat, userObj.long, userObj.username, userObj.pwhash, userObj.google_ID, userObj.thumbnail))
         .catch(() => {
