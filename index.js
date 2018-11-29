@@ -62,7 +62,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     // res.send(mainPage())
-    res.redirect('/login')
+    res.redirect('./login')
     // const thePage = page('hey there');
     // res.send(thePage);
 });
