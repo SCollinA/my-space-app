@@ -62,7 +62,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     // res.send(mainPage())
-    res.redirect('./login')
+    res.redirect('/login')
     // const thePage = page('hey there');
     // res.send(thePage);
 });
@@ -72,7 +72,7 @@ app.get('/about', (req,res)=>{
 });
 
 app.get('/profile', ensureAuthenticated, (req,res)=>{
-    User.getById(req.session.passport.user)
+    User.getById(req.session.passport.user.id)
     .then(theUser => {
         theUser.getFriends()
         .then(friends =>{
