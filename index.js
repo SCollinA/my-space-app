@@ -60,7 +60,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Configure body-parser to read JSON bodies
 app.use(bodyParser.json());
 
-// app.get('/', (req, res) => {
+app.get('/', (req, res) => {
     // res.send(mainPage())
     res.redirect('/login')
     // const thePage = page('hey there');
