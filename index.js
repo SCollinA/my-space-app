@@ -109,6 +109,7 @@ app.post('/friend', ensureAuthenticated, (req, res)=>{
     const username = req.body.username
     User.getById(req.session.passport.user)
     .then(theUser =>{
+        console.log('No, This is the problem')
         User.getByUsername(username)
         .then(friend =>{
             theUser.addFriend(friend )
@@ -160,6 +161,7 @@ app.post('/login', (req, res) => {
     const loginUsername = req.body.username;
     const loginPassword = req.body.password;
     //2. Find a user whose name matches 'theUsername'
+    console.log('This is the problem')
     User.getByUsername(loginUsername)
         .catch(err => {
             console.log(err);
