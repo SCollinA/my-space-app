@@ -60,9 +60,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Configure body-parser to read JSON bodies
 app.use(bodyParser.json());
 
-app.get('/my-space-app', (req, res) => {
+app.get('/', (req, res) => {
     // res.send(mainPage())
-    res.redirect('./login')
+    res.redirect('/login')
     // const thePage = page('hey there');
     // res.send(thePage);
 });
