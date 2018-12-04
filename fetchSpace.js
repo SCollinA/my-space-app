@@ -1,4 +1,5 @@
 const axios = require('axios')
+const aa = require('astronomical-algorithms')
 const db = require('./models/db')
 const Event = require('./models/Event') // required to make/update events
 const Body = require('./models/Body') // required to reference body names
@@ -32,6 +33,7 @@ function parseObjectData(objectData) {
         dec: objectData.dec
     }
 }
+
 
 function checkVisibility(objectPosition) {
     // find events added previously
@@ -68,14 +70,15 @@ function checkVisibility(objectPosition) {
                             // get their positions
                             return Promise.all(users.map(user => {
                                 if (user.lat > 0) {
+                                    // aa.transits.getRiseSetTransitTimes(aa.julianday.JulianDay, aa.coordinates.transformEclipticToEquatorial(), user.long,)
                                     if (objectDec > 90 - user.lat) {
                                         // object is always visible at night
                                         return Event.add(`${body.name} is visible`, currentTime, body.id, user.id)
-                                            .then(user.addEvent)
+                                        .then(user.addEvent)
                                     } else if (objectDec > -90 + user.lat) {
                                         // object is sometimes visible at night
                                         return Event.add(`${body.name} is sometimes visible`, currentTime, body.id, user.id)
-                                            .then(user.addEvent)
+                                        .then(user.addEvent)
                                     }
                                 } else {
                                     if (objectDec < -90 - user.lat) {
