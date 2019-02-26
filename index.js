@@ -31,8 +31,6 @@ const contentElement = require('./views/content')
 const bodyElement = require('./views/body')
 const pageElement = require('./views/page')
 
-
-
 updateEvents(); 
 
 //set up session middleware
@@ -45,6 +43,14 @@ app.use(session({
     }
 }));
 
+//Connect to stylesheets
+app.use('static', express.static('public'));
+
+//Configure body-parser to read data sent by HTML form tags
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Configure body-parser to read JSON bodies
+app.use(bodyParser.json());
 
 //making sure users are logged in to do anything
 const ensureAuthenticated = (req, res, next) => {
@@ -61,15 +67,6 @@ const ensureAuthenticated = (req, res, next) => {
     res.redirect('/login');
 }
 
-
-//Connect to stylesheets
-app.use(express.static('/public'));
-
-//Configure body-parser to read data sent by HTML form tags
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Configure body-parser to read JSON bodies
-app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     // res.send(mainPage())
