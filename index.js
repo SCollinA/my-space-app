@@ -206,7 +206,7 @@ app.get('/events', ensureAuthenticated, (req, res) => {
     // user's main page
     // get all of user's events
     // and build page
-    User.getById(req.session.passport.user)
+    User.getById(req.session.user.id)
     .then(user => {
         Event.getByUser(user.id)
         .then(events => {
