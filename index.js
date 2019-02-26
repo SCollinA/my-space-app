@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-// const app = express();
+const app = express();
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
@@ -8,7 +8,7 @@ const pgSession = require('connect-pg-simple')(session);
 const User = require('./models/User');
 const Body = require('./models/Body');
 const Event = require('./models/Event');
-const app = require('./auth');
+// const app = require('./auth');
 
 
 const mainPage = require('./views/mainpage');
@@ -35,11 +35,22 @@ const pageElement = require('./views/page')
 
 updateEvents(); 
 
+//set up session middleware
+app.use(session({
+    secret: 'random1234',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000
+    }
+}));
+
 
 //making sure users are logged in to do anything
 const ensureAuthenticated = (req, res, next) => {
     console.log(req.session);
-    if (req.session.passport || req.isAuthenticated()) {
+    if (req.session.user) {
+        // req.session.passport || req.isAuthenticated()) {
         // req.user is available for use here
         console.log('we are all good');
         return next();
@@ -72,7 +83,7 @@ app.get('/about', (req,res)=>{
 });
 
 app.get('/profile', ensureAuthenticated, (req,res)=>{
-    User.getById(req.session.passport.user)
+    User.getById(req.session.user.id)
     .then(theUser => {
         theUser.getFriends()
         .then(friends =>{
@@ -92,7 +103,7 @@ app.get('/profile', ensureAuthenticated, (req,res)=>{
 
 app.post('/favorite', ensureAuthenticated, (req, res)=>{
     const bodyname = req.body.bodyname
-    User.getById(req.session.passport.user)
+    User.getById(req.session.user.id)
     .then(theUser =>{
         Body.getByName(bodyname)
         .then(spaceBody =>{
@@ -107,7 +118,7 @@ app.post('/favorite', ensureAuthenticated, (req, res)=>{
 
 app.post('/friend', ensureAuthenticated, (req, res)=>{
     const username = req.body.username
-    User.getById(req.session.passport.user)
+    User.getById(req.session.user.id)
     .then(theUser =>{
         console.log('No, This is the problem')
         User.getByUsername(username)
@@ -140,9 +151,7 @@ app.post('/register', (req, res) => {
     .then(newUser => {
         updateEvents()
         .then(() => {
-            req.session.passport = {
-                user: newUser.id
-            };
+            req.session.user = newUser
             req.session.save(()=>{
                 res.redirect(`/profile`);
             })
@@ -172,11 +181,9 @@ app.post('/login', (req, res) => {
             console.log('this is supposedly theUser');
             // const didMatch = bcrypt.compareSync(loginPassword, theUser.pwhash);
             if (theUser.passwordDoesMatch(loginPassword)) {
-                req.session.passport = {
-                    user: theUser.id
-                };
+                req.session.user = theUser
                 console.log('it worked or it exists');
-                req.session.save(()=>{
+                req.session.save(() => {
                     res.redirect(`/profile`);
                 })
             } else {
@@ -186,6 +193,12 @@ app.post('/login', (req, res) => {
         })
 });
 
+
+app.get('/logout', (req,res)=> {
+    // req.logout();
+    req.session.destroy();
+    res.redirect('/login');
+})
 
 
 
