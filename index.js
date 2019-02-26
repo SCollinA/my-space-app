@@ -33,6 +33,9 @@ const pageElement = require('./views/page')
 
 updateEvents(); 
 
+//Connect to stylesheets
+app.use(express.static('public'));
+
 //set up session middleware
 app.use(session({
     secret: 'random1234',
@@ -42,9 +45,6 @@ app.use(session({
         maxAge: 30 * 24 * 60 * 60 * 1000
     }
 }));
-
-//Connect to stylesheets
-app.use(express.static('public'));
 
 //Configure body-parser to read data sent by HTML form tags
 app.use(bodyParser.urlencoded({ extended: false }));
