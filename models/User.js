@@ -40,16 +40,17 @@ class User {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hash = bcrypt.hashSync(password, salt);
         return db.one(`
-        insert into users 
-            (name, lat, long, username, pwhash, google_ID, thumbnail)
-        values
-            ($1, $2, $3, $4, $5, $6, $7)
-        returning id`, [name, lat, long, username, hash, null, null])
-            .then(data => {
-                console.log(data);
-                const u = new User(data.id, data.name, data.lat, data.long, username, data.google_ID, data.thumbnail);
-                return u;
-            });
+            insert into users 
+                (name, lat, long, username, pwhash, google_ID, thumbnail)
+            values
+                ($1, $2, $3, $4, $5, $6, $7)
+            returning id, name, lat, long, google_ID, thumbnail`, 
+        [name, lat, long, username, hash, null, null])
+        .then(data => {
+            console.log(data);
+            const u = new User(data.id, data.name, data.lat, data.long, username, data.google_ID, data.thumbnail);
+            return u;
+        });
 
     }
     // RETRIEVE
@@ -68,21 +69,16 @@ class User {
         })
     }
     static getById(id) {
-        console.log('buut')
         return db.one(`select * from users where id=$1`, [id])
         .then(userObj => new User(userObj.id, userObj.name, userObj.lat, userObj.long, userObj.username, userObj.pwhash, userObj.google_ID, userObj.thumbnail))
-        .catch(() => {
-            console.log('buut')
-        })
     }
 
 
     static getByUsername(username) {
         return db.one(`
-        select * from users
-        where username ilike '%$1:raw%'          
-    `, [username]).then(data => {
-            console.log(data);
+            select * from users where username ilike '%$1:raw%'          
+        `, [username])
+        .then(data => {
             return new User(data.id, data.name, data.lat, data.long, username, data.pwhash, data.google_ID, data.thumbnail);
         })
     }
@@ -95,8 +91,7 @@ class User {
     }
 
     static searchByLocation(location) {
-        return db.any(`
-        select * from users
+        return db.any(`select * from users
             where location ilike '%1:raw%'`, [location])
     }
 

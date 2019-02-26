@@ -87,8 +87,10 @@ app.get('/profile', ensureAuthenticated, (req,res)=>{
             theUser.getFavBody()
             .then(bodies =>{
                 res.send(profilePage.profile( 
-                    profilePage.myFavsDiv(bodies),profilePage.myFriendsDiv(friends),profilePage.myLocation
-                    ([theUser.lat, theUser.long])))
+                    profilePage.myFavsDiv(bodies),
+                    profilePage.myFriendsDiv(friends),
+                    profilePage.myLocation([theUser.lat, theUser.long])
+                ))
             })
         })
     })
@@ -117,10 +119,9 @@ app.post('/friend', ensureAuthenticated, (req, res)=>{
     const username = req.body.username
     User.getById(req.session.user.id)
     .then(theUser =>{
-        console.log('No, This is the problem')
         User.getByUsername(username)
         .then(friend =>{
-            theUser.addFriend(friend )
+            theUser.addFriend(friend)
             .then(()=>{
                 res.redirect('/profile')
             })
@@ -148,8 +149,9 @@ app.post('/register', (req, res) => {
     .then(newUser => {
         updateEvents()
         .then(() => {
+            console.log('new user', newUser)
             req.session.user = newUser
-            req.session.save(()=>{
+            req.session.save(() => {
                 res.redirect(`/profile`);
             })
         })
