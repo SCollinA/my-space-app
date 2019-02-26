@@ -44,7 +44,7 @@ app.use(session({
 }));
 
 //Connect to stylesheets
-app.use('static', express.static('public'));
+app.use(express.static('public'));
 
 //Configure body-parser to read data sent by HTML form tags
 app.use(bodyParser.urlencoded({ extended: false }));

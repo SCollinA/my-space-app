@@ -7,8 +7,8 @@ function about() {
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-       <link rel="stylesheet" href="./css/about.css">
-       <link rel="stylesheet" href="./css/myspace.css">
+       <link rel="stylesheet" href="css/about.css">
+       <link rel="stylesheet" href="css/myspace.css">
        <title>AboutUS</title>
    </head>
    
@@ -18,14 +18,14 @@ function about() {
    <nav class="main-nav">
        <ul>
            <li>
-               <a href="/events">Home <i class="fas fa-globe"></i></a>
+               <a href="/events">Home</a>
 
            </li>
            <li>
-               <a href="/profile">My Space <i class="fas fa-globe"></i></a>
+               <a href="/profile">My Space</a>
            </li>
            <li>
-               <a href="#">Login <i class="fas fa-sign-in-alt"></i></a>
+               <a href="#">Login</a>
            </li>
         
        </ul>
