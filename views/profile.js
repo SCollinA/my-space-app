@@ -7,10 +7,7 @@ function profile(FavsDiv, FriendsDiv, LocationDiv) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/myspace.css">
-    <link rel="stylesheet" href="">
-    <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0"
-        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/myspace.css">
     <title>MyProfile</title>
 </head>
 
