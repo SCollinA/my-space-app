@@ -34,7 +34,7 @@ const pageElement = require('./views/page')
 updateEvents(); 
 
 //Connect to stylesheets
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 //set up session middleware
 app.use(session({
