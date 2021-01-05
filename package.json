@@ -22,7 +22,7 @@
   "homepage": "https://github.com/SCollinA/my-space-app#readme",
   "dependencies": {
     "astronomical-algorithms": "^0.5.7",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
     "connect-pg-simple": "^5.0.0",
